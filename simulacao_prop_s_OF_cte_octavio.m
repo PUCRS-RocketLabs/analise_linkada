@@ -1,11 +1,11 @@
 %% INPE - Rocket Design %%
-%  Projeto de motorizaÁ„o   %
-%  Respons·vel: Nicollas Alexandre V. F. Pereira
+%  Projeto de motoriza√ß√£o   %
+%  Respons√°vel: Nicollas Alexandre V. F. Pereira
 %  Criado em: 20-10-2016
 clear
 close all
 clc
-%% Par‚metros de entrada
+%% Par√¢metros de entrada
 g=9.80665;
 
 %motor
@@ -29,39 +29,39 @@ OF=4;                   %valor inicial
 OFr=OF;
 c_star=inter_cstar_a(OFr);
 
-% %regress„o
+% %regress√£o
 % a=0.472;
 % n=0.555;
 a=0.48;
 n=0.45;
 
 
-%% C·lculos geometrias
+%% C√°lculos geometrias
 %propelente
 
-ve=inter_pa(OF);        %estima v_exaustao pela raz„o OF dada
+ve=inter_pa(OF);        %estima v_exaustao pela raz√£o OF dada
 
-m_dot=F/ve;             %calcula a vaz„o m·ssica necess·ria
+m_dot=F/ve;             %calcula a vaz√£o m√°ssica necess√°ria
 
-mf=m_dot/(OF+1);        %mdot combustÌvel
+mf=m_dot/(OF+1);        %mdot combust√≠vel
 mox=m_dot-mf;           %mdot oxidante 
 
-%injeÁ„o                %calcula os par‚metros de injeÁ„o
+%inje√ß√£o                %calcula os par√¢metros de inje√ß√£o
 
 cd=0.5;   
 N_inj=1;
 
-A_inj=mox/(cd*N_inj*sqrt(2*rhoox*(Pinj-Pc)));       %·rea total de injeÁ„o
+A_inj=mox/(cd*N_inj*sqrt(2*rhoox*(Pinj-Pc)));       %√°rea total de inje√ß√£o
 
-d4f=sqrt(4/pi*A_inj/4); %di‚metros para 4 injetores
-d8f=sqrt(4/pi*A_inj/8); %di‚metros para 8 injetores
+d4f=sqrt(4/pi*A_inj/4); %di√¢metros para 4 injetores
+d8f=sqrt(4/pi*A_inj/8); %di√¢metros para 8 injetores
 
 %garganta
 At=m_dot*c_star/(Pc);
-Dt=sqrt(4/pi*At);       %di‚metros para garganta
+Dt=sqrt(4/pi*At);       %di√¢metros para garganta
 
 
-%% simulaÁ„o
+%% simula√ß√£o
 t=0;
 moxg=0;
 mfg=0;
@@ -70,7 +70,7 @@ rsum=0;
 i=1;
 Itot=0;
 
-while rsum<=egrao && moxg<=moxt   %condiÁ„o de parada - toda parafina È consumida
+while rsum<=egrao && moxg<=moxt   %condi√ß√£o de parada - toda parafina √© consumida
 
 mox=A_inj*(cd*N_inj*sqrt(2*rhoox*(Pinj-Pc)));
 %% daqui
@@ -148,10 +148,10 @@ save('cur_thrust.mat','Fs','ts')
 % figure(3)
 subplot(2,3,3)
 plot(ts,rs*1000,'b','LineWidth',1.5)
-title('Taxa de regress„o')
+title('Taxa de regress√£o')
 grid minor
 xlabel('tempo (s)')
-ylabel('Taxa de regress„o (mm/s)')
+ylabel('Taxa de regress√£o (mm/s)')
 % figure(3)
 % 
 subplot(2,3,4)
@@ -164,51 +164,51 @@ ylabel('Unidades SI')
 % figure(2)
 subplot(2,3,5)
 plot(ts,mfs*1000,'b','LineWidth',1.5)
-title('Vaz„o m·ssica - Parafina')
+title('Vaz√£o m√°ssica - Parafina')
 grid minor
 xlabel('tempo (s)')
-ylabel('Vaz„o m·ssica combustÌvel (g/s)')
+ylabel('Vaz√£o m√°ssica combust√≠vel (g/s)')
 
 subplot(2,3,6)
 plot(ts,(egrao-rsums)*1000,'b','LineWidth',1.5)
-title('Espessura do gr„o')
+title('Espessura do gr√£o')
 grid minor
 xlabel('tempo (s)')
-ylabel('Espessura do gr„o (mm)')
+ylabel('Espessura do gr√£o (mm)')
 
 ##display('-----   INPE -- Rocket Design    -----')
-##display('---       An·lise preliminar       ---')
+##display('---       An√°lise preliminar       ---')
 ##display('--------------------------------------')
-display('---          MotorizaÁ„o           ---')
+display('---          Motoriza√ß√£o           ---')
 display('--------------------------------------')
 
 fprintf('\nImpulso total: %.0f N.s \n', Itot)
 Fmedio=Itot/t;
 
-fprintf('Impulso especÌfico: %.1f s\n', isps(i-1))
+fprintf('Impulso espec√≠fico: %.1f s\n', isps(i-1))
 
-fprintf('Empuxo mÈdio: %.2f N \n', Fmedio)
+fprintf('Empuxo m√©dio: %.2f N \n', Fmedio)
 
 fprintf('Tempo de queima: %.2f s \n\n', t)
 
 fprintf('Diametro da garganta: %.2f mm \n', Dt*1000)
 
-fprintf('Diametro do gr„o: %.0f mm \n', dgrao*1000)
+fprintf('Diametro do gr√£o: %.0f mm \n', dgrao*1000)
 
 fprintf('Diametro do furo: %.0f mm \n', d_port_0*1000)
 
 mgraos=pi*((dgrao)^2-d_port_0^2)/4*rhowax*ngrao*hgrao;
 
-fprintf('Massa de combustÌvel: %.0f g \n', mgraos*1000)
+fprintf('Massa de combust√≠vel: %.0f g \n', mgraos*1000)
 
-fprintf('Massa de resÌduo: %.0f g \n\n', (mgraos-mfg)*1000)
+fprintf('Massa de res√≠duo: %.0f g \n\n', (mgraos-mfg)*1000)
 
 
 fprintf('Diametros dos injetores (4): %.3f mm \n', d4f*1000)
 
 fprintf('Diametros dos injetores (8): %.3f mm \n\n', d8f*1000)
 
-fprintf('Vaz„o m·ssica oxidante: %.2f g/s \n', mox*1000)
+fprintf('Vaz√£o m√°ssica oxidante: %.2f g/s \n', mox*1000)
 
 fprintf('Massa total de oxidante: %.2f g \n\n', moxg*1000)
 
@@ -217,7 +217,7 @@ save('masses.m','mgraos','moxg')
 figure(1)
 k=1;
 type(k) = menu('Deseja simular o desempenho?','Sim',...
-        'N„o');
+        'N√£o');
     if type==1
         run desempenho_foguete_balistico_octavio.m
     end
